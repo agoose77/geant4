@@ -36,20 +36,10 @@ using namespace boost::python;
 
 
 // ====================================================================
-// thin wrappers
-// ====================================================================
-namespace pyG4RandomDirection {
-    G4ThreeVector (*f1_RandomDirection)() = G4RandomDirection;
-    G4ThreeVector (*f2_RandomDirection)(G4double) = G4RandomDirection;
-}
-
-using namespace pyG4RandomDirection;
-// ====================================================================
 // module definition
 // ====================================================================
 void export_G4RandomDirection()
 {
-  def("G4RandomDirection",  f1_RandomDirection);
-  def("G4RandomDirection",  f2_RandomDirection);
+  def("G4RandomDirection",  G4RandomDirection);
 }
 
