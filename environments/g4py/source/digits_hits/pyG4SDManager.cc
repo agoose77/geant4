@@ -23,33 +23,62 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-// $Id: pyG4RandomDirection.cc 66892 2013-01-17 10:57:59Z gunter $
+// $Id: pyG4SDManager.cc 86749 2014-11-17 15:03:05Z gcosmo $
 // ====================================================================
-//   pyG4RandomDirection.cc
+//   pyG4SDManager.cc
 //
 //                                         2005 Q
 // ====================================================================
 #include <boost/python.hpp>
-#include "G4RandomDirection.hh"
+#include "G4Version.hh"
+#include "G4SDManager.hh"
+#include "G4Event.hh"
 
 using namespace boost::python;
-
 
 // ====================================================================
 // thin wrappers
 // ====================================================================
-namespace pyG4RandomDirection {
-    G4ThreeVector (*f1_RandomDirection)() = G4RandomDirection;
-    G4ThreeVector (*f2_RandomDirection)(G4double) = G4RandomDirection;
+namespace pyG4SDManager {
+
 }
 
-using namespace pyG4RandomDirection;
+using namespace pyG4SDManager;
+
 // ====================================================================
 // module definition
 // ====================================================================
-void export_G4RandomDirection()
+void export_G4SDManager()
 {
-  def("G4RandomDirection",  f1_RandomDirection);
-  def("G4RandomDirection",  f2_RandomDirection);
-}
+  class_<G4SDManager, boost::noncopyable>
+    ("G4SDManager", "sensitive detector manager class", no_init)
+    // ---
+    .def("GetSDMpointer", &G4SDManager::GetSDMpointer,
+        "Get an instance of G4SDManager",
+        return_value_policy<reference_existing_object>())
+    .staticmethod("GetSDMpointer")
+    .def("GetSDMpointerIfExist", &G4SDManager::GetSDMpointerIfExist,
+        "Get an instance of G4SDManager if it exists",
+        return_value_policy<reference_existing_object>())
+    .staticmethod("GetSDMpointerIfExist")
+    // ---
+    .def("SetVerboseLevel", &G4SDManager::SetVerboseLevel)
+    // ---
+    .def("AddNewDetector", &G4SDManager::AddNewDetector)
+    .def("Activate", &G4SDManager::Activate)
+    .def("FindSensitiveDetector", &G4SDManager::FindSensitiveDetector,
+        return_value_policy<reference_existing_object>())
+        
+    .def("ListTree", &G4SDManager::ListTree)
+    ;
 
+    // reduced functionality...
+    // void SetPrimaryTransformer(G4PrimaryTransformer* pt)
+    // void SetNumberOfAdditionalWaitingStacks(G4int iAdd)
+    // void CutOffHasBeenModified()
+    // void SetGeometryToBeOptimized(G4bool vl)
+    // const G4Event* GetPreviousEvent(G4int i) const
+    // void SetNumberOfEventsToBeStored(G4int val)
+    // void SetDCtable(G4DCtable* DCtbl)
+
+}

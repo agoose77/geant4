@@ -2,11 +2,15 @@
 
 # library
 set(_TARGET pyG4physicslists)
+
 add_library(
   ${_TARGET} SHARED
+  pyPhysicsConstructors.cc
   pyPhysicsLists.cc
   pymodG4physicslists.cc
 )
+
+
 
 set_target_properties(${_TARGET} PROPERTIES PREFIX "")
 set_target_properties(${_TARGET} PROPERTIES OUTPUT_NAME "G4physicslists")

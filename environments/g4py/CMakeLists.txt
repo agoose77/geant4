@@ -17,6 +17,7 @@ enable_testing()
 # Do not edit below
 #------------------------------------------------------------------------------
 set(CMAKE_CXX_STANDARD 11)
+set(Python_ADDITIONAL_VERSIONS 3.6)
 
 # cmake modules
 set(CMAKE_MODULE_PATH
@@ -27,9 +28,9 @@ include(SetInstallPath)
 
 # searching packages...
 find_package(Geant4 REQUIRED)
-find_package(PythonInterp REQUIRED)
-find_package(PythonLibs REQUIRED)
-find_package(Boost)
+find_package(PythonInterp 3.6 REQUIRED)
+find_package(PythonLibs 3.6 REQUIRED)
+find_package(Boost COMPONENTS python3)
 find_package(XercesC)
 find_package(ROOT)
 

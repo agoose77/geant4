@@ -56,6 +56,9 @@ void export_G4Exception();
 void export_G4ExceptionHandler();
 void export_G4ExceptionSeverity();
 void export_G4TwoVector();
+void export_G4PhysicsVector();
+void export_G4Physics2DVector();
+void export_G4PhysicsOrderedFreeVector();
 
 BOOST_PYTHON_MODULE(G4global) 
 {
@@ -64,6 +67,9 @@ BOOST_PYTHON_MODULE(G4global)
   export_G4StateManager();
   export_G4ApplicationState();
   export_G4String();
+  export_G4PhysicsVector();
+  export_G4Physics2DVector();
+  export_G4PhysicsOrderedFreeVector();
   export_G4ThreeVector();
   export_G4TwoVector();
   export_G4RotationMatrix();

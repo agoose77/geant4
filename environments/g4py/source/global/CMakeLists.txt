@@ -14,6 +14,9 @@ add_library(
   pyG4StateManager.cc
   pyG4String.cc
   pyG4ThreeVector.cc
+  pyG4PhysicsVector.cc
+  pyG4PhysicsOrderedFreeVector.cc
+  pyG4Physics2DVector.cc
   pyG4Timer.cc
   pyG4Transform3D.cc
   pyG4TwoVector.cc
