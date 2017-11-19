@@ -23,70 +23,81 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-// $Id: pyG4VModularPhysicsList.cc 76884 2013-11-18 12:54:03Z gcosmo $
+// $Id: pyG4SurfaceProperty.cc 76884 2017-11-18 20:55:03Z agoose77 $
 // ====================================================================
-//   pyG4VModularPhysicsList.cc
+//   pyG4SurfaceProperty.cc
 //
 //                                         2005 Q
 // ====================================================================
 #include <boost/python.hpp>
-#include "G4VModularPhysicsList.hh"
+#include "G4Version.hh"
+#include "G4SurfaceProperty.hh"
+#include "pyG4indexing.hh"
 
 using namespace boost::python;
 
 // ====================================================================
 // thin wrappers
 // ====================================================================
-namespace pyG4VModularPhysicsList {
-
-    struct CB_G4VModularPhysicsList :
-      G4VModularPhysicsList, wrapper<G4VModularPhysicsList> {
-
-      void SetCuts() {
-        get_override("SetCuts")();
-      }
-
-    };
-
-    // GetPhysics()
-    const G4VPhysicsConstructor* (G4VModularPhysicsList::*f1_GetPhysics)(G4int) const = &G4VModularPhysicsList::GetPhysics;
-    const G4VPhysicsConstructor*(G4VModularPhysicsList::*f2_GetPhysics)(const G4String&) const = &G4VModularPhysicsList::GetPhysics;
-      
-    void (G4VModularPhysicsList::*f1_RemovePhysics)(G4VPhysicsConstructor*) = &G4VModularPhysicsList::RemovePhysics;    
-    void (G4VModularPhysicsList::*f2_RemovePhysics)(G4int) = &G4VModularPhysicsList::RemovePhysics;
-    void (G4VModularPhysicsList::*f3_RemovePhysics)(const G4String&) = &G4VModularPhysicsList::RemovePhysics;
+namespace pyG4SurfaceProperty {
+    // Wrappers to overcome return /arg of reference type
+    // G4SurfaceType f_GetType(G4SurfaceProperty& prop)
+    // {
+    //     return prop.GetType();
+    // }
+    // void f_SetType(G4SurfaceProperty& prop, G4SurfaceType type)
+    // {
+    //     prop.SetType(type);
+    // }
 
 }
 
-using namespace pyG4VModularPhysicsList;
+using namespace pyG4SurfaceProperty;
 
 // ====================================================================
 // module definition
 // ====================================================================
-void export_G4VModularPhysicsList()
+void export_G4SurfaceProperty()
 {
-  class_<CB_G4VModularPhysicsList, bases<G4VUserPhysicsList>,
-    boost::noncopyable>
-    ("G4VModularPhysicsList", "base class of modular physics list")
-    // ---
-    .def("SetCuts",            pure_virtual(&G4VModularPhysicsList::SetCuts))
-    .def("ConstructParticle",  &G4VModularPhysicsList::ConstructParticle)
-    .def("ConstructProcess",   &G4VModularPhysicsList::ConstructProcess)
-    // ---
-    .def("RegisterPhysics",     &G4VModularPhysicsList::RegisterPhysics)
-    
-    .def("ReplacePhysics",     &G4VModularPhysicsList::ReplacePhysics)
-    
-    .def("RemovePhysics",     f1_RemovePhysics)
-    .def("RemovePhysics",     f2_RemovePhysics)
-    .def("RemovePhysics",     f3_RemovePhysics)
-    
-    .def("GetPhysics",         f1_GetPhysics,
-         return_value_policy<reference_existing_object>())
-    .def("GetPhysics",         f2_GetPhysics,
-         return_value_policy<reference_existing_object>())
-    .def("SetVerboseLevel", &G4VModularPhysicsList::SetVerboseLevel)
-    .def("GetVerboseLevel", &G4VModularPhysicsList::GetVerboseLevel)
+
+  class_<G4SurfacePropertyTable>("G4SurfacePropertyTable", "Surface Property Table")
+    .def(vector_indexing_suite<G4SurfacePropertyTable>())
     ;
+    
+  class_<G4SurfaceProperty, G4SurfaceProperty*, boost::noncopyable>
+    ("G4SurfaceProperty", "surface property class", no_init)
+    .def(init<>())
+    .def(init<const G4String&, G4SurfaceType>())
+    // 
+    .def("GetName", &G4SurfaceProperty::GetName, 
+         return_value_policy<reference_existing_object>())
+    .def("SetName", &G4SurfaceProperty::SetName)
+    .def("GetType", &G4SurfaceProperty::GetType, 
+         return_value_policy<copy_const_reference>())
+    .def("SetType", &G4SurfaceProperty::SetType)
+    
+    .def("CleanSurfacePropertyTable", &G4SurfaceProperty::CleanSurfacePropertyTable,
+         return_value_policy<reference_existing_object>())
+    .staticmethod("CleanSurfacePropertyTable")
+    
+    .def("GetSurfacePropertyTable", &G4SurfaceProperty::GetSurfacePropertyTable,
+         return_value_policy<reference_existing_object>())
+    .staticmethod("GetSurfacePropertyTable")
+    
+    .def("GetNumberOfSurfaceProperties", &G4SurfaceProperty::GetNumberOfSurfaceProperties)
+    .staticmethod("GetNumberOfSurfaceProperties")
+    
+    .def("DumpTableInfo", &G4SurfaceProperty::DumpTableInfo)
+    .staticmethod("DumpTableInfo")
+    ;
+
+    enum_<G4SurfaceType>("G4SurfaceType")
+       .value("dielectric_metal", dielectric_metal)            // dielectric-metal interface
+       .value("dielectric_dielectric", dielectric_dielectric)       // dielectric-dielectric interface
+       .value("dielectric_LUT", dielectric_LUT)              // dielectric-Look-Up-Table interface
+       .value("dielectric_dichroic", dielectric_dichroic)         // dichroic filter interface
+       .value("firsov", firsov)                      // for Firsov Process
+       .value("x_ray", x_ray)                      // for x-ray mirror process
+       ;
 }
 

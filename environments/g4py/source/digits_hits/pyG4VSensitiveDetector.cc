@@ -52,6 +52,31 @@ public:
   G4bool ProcessHits(G4Step* aStep, G4TouchableHistory* ROhist) {
     return get_override("ProcessHits")(&aStep, &ROhist);
   }
+
+  void Initialize(G4HCofThisEvent* hc) {
+    if (override f = get_override("Initialize"))
+        f(&hc);
+    else
+        G4VSensitiveDetector::Initialize(hc);
+  }
+  void default_Initialize(G4HCofThisEvent* hc) {
+    this->G4VSensitiveDetector::Initialize(hc);  
+  }
+  void EndOfEvent(G4HCofThisEvent* hc) {
+      std::cout << "End of event" << std::endl;
+    if (override f = get_override("EndOfEvent"))
+        f(&hc);
+    else
+        G4VSensitiveDetector::EndOfEvent(hc);
+  }
+  /* We could just use
+  .def("EndOfEvent", &G4VSensitiveDetector::Initialize, &CB_G4VSensitiveDetector::Initialize)
+  
+  but then super() will cause recursion, so define the default_EndOfEvent case
+  */
+  void default_EndOfEvent(G4HCofThisEvent* hc) {
+    this->G4VSensitiveDetector::EndOfEvent(hc);  
+  }
 };
 
 }
@@ -63,13 +88,13 @@ using namespace pyG4VSensitiveDetector;
 // ====================================================================
 void export_G4VSensitiveDetector()
 {
-  class_<CB_G4VSensitiveDetector, boost::noncopyable>
-    ("G4VSensitiveDetector", "base class of senstive detector")
+  class_<CB_G4VSensitiveDetector, CB_G4VSensitiveDetector*, boost::noncopyable>
+    ("G4VSensitiveDetector", "base class of senstive detector", no_init)
     // ---
     .def(init<const G4String&>())
     // ---
-    .def("Initialize",      &G4VSensitiveDetector::Initialize)
-    .def("EndOfEvent",      &G4VSensitiveDetector::EndOfEvent)
+    .def("Initialize",      &G4VSensitiveDetector::Initialize, &CB_G4VSensitiveDetector::default_Initialize)
+    .def("EndOfEvent",      &G4VSensitiveDetector::EndOfEvent, &CB_G4VSensitiveDetector::default_EndOfEvent)
     .def("clear",           &G4VSensitiveDetector::clear)
     .def("DrawAll",         &G4VSensitiveDetector::DrawAll)
     .def("PrintAll",        &G4VSensitiveDetector::PrintAll)

@@ -12,7 +12,10 @@ add_library(
   pyG4Material.cc
   pyG4MaterialTable.cc
   pyG4NistManager.cc
+  pyG4SurfaceProperty.cc
+  pyG4OpticalSurface.cc
   pymodG4materials.cc
+  pyG4MaterialPropertiesTable.cc
 )
 
 set_target_properties(${_TARGET} PROPERTIES PREFIX "")
@@ -24,7 +27,7 @@ set_target_properties(${_TARGET}
                       BUILD_WITH_INSTALL_RPATH TRUE)
 
 target_link_libraries (${_TARGET}
-                      ${GEANT4_LIBRARIES_WITH_VIS} boost_python
+                      ${GEANT4_LIBRARIES_WITH_VIS} boost_python boost_numpy3
                       ${PYTHON_LIBRARIES})
 
 # install

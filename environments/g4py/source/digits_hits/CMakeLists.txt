@@ -5,7 +5,9 @@ set(_TARGET pyG4digits_hits)
 add_library(
   ${_TARGET} SHARED
   pyG4VSensitiveDetector.cc
+  pyG4HCofThisEvent.cc
   pymodG4digits_hits.cc
+  pyG4SDManager.cc
 )
 
 set_target_properties(${_TARGET} PROPERTIES PREFIX "")

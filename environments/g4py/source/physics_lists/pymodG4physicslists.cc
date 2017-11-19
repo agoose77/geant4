@@ -37,9 +37,11 @@ using namespace boost::python;
 // module definition
 // ====================================================================
 void export_PhysicsLists();
+void export_PhysicsConstructors();
 
 BOOST_PYTHON_MODULE(G4physicslists)
 {
   export_PhysicsLists();
+  export_PhysicsConstructors();
 }
 
