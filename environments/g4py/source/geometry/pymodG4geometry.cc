@@ -76,6 +76,7 @@ void export_G4Field();
 void export_G4MagneticField();
 void export_G4UniformMagField();
 void export_G4ChordFinder();
+void export_G4LogicalBorderSurface();
 
 BOOST_PYTHON_MODULE(G4geometry)
 {
@@ -119,5 +120,6 @@ BOOST_PYTHON_MODULE(G4geometry)
   export_G4MagneticField();
   export_G4UniformMagField();
   export_G4ChordFinder();
+  export_G4LogicalBorderSurface();
 }
 

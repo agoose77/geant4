@@ -44,6 +44,7 @@ add_library (
   pyG4VPhysicalVolume.cc
   pyG4VSolid.cc
   pyG4VTouchable.cc
+  pyG4LogicalBorderSurface.cc
   pymodG4geometry.cc
 )
 
