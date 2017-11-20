@@ -41,7 +41,7 @@ using namespace boost::python;
 // thin wrappers
 // ====================================================================
 namespace pyG4OpticalSurface {
-    
+
 }
 
 using namespace pyG4OpticalSurface;
@@ -59,36 +59,49 @@ void export_G4OpticalSurface()
 			 G4OpticalSurfaceFinish,
 			 G4SurfaceType,
 			 G4double>())
-             
+     .def(init<const G4String&,
+ 			 G4OpticalSurfaceModel,
+ 			 G4OpticalSurfaceFinish,
+ 			 G4SurfaceType>())
+
+     .def(init<const G4String&,
+ 			 G4OpticalSurfaceModel,
+ 			 G4OpticalSurfaceFinish>())
+
+     .def(init<const G4String&,
+ 			 G4OpticalSurfaceModel>())
+
+     .def(init<const G4String&>())
+
     .def("SetType", &G4OpticalSurface::SetType)
-    
+
     .def("GetModel", &G4OpticalSurface::GetModel)
     .def("SetModel", &G4OpticalSurface::SetModel)
-    
+
     .def("GetFinish", &G4OpticalSurface::GetFinish)
     .def("SetFinish", &G4OpticalSurface::SetFinish)
-    
+
     .def("GetSigmaAlpha", &G4OpticalSurface::GetSigmaAlpha)
     .def("SetSigmaAlpha", &G4OpticalSurface::SetSigmaAlpha)
-    
+
     .def("GetPolish", &G4OpticalSurface::GetPolish)
     .def("SetPolish", &G4OpticalSurface::SetPolish)
 
     .def("GetMaterialPropertiesTable", &G4OpticalSurface::GetMaterialPropertiesTable,
         return_value_policy<reference_existing_object>())
     .def("SetMaterialPropertiesTable", &G4OpticalSurface::SetMaterialPropertiesTable)
-    
+
     .def("DumpInfo", &G4OpticalSurface::DumpInfo)
     .def("GetAngularDistributionValue", &G4OpticalSurface::GetAngularDistributionValue)
     .def("GetThetaIndexMax", &G4OpticalSurface::GetThetaIndexMax)
     .def("GetPhiIndexMax", &G4OpticalSurface::GetPhiIndexMax)
     .def("GetDichroicVector", &G4OpticalSurface::GetDichroicVector,
 	 return_internal_reference<>())
-        
+
     .def(self == self)
     .def(self != self)
     ;
-    
+
     enum_<G4OpticalSurfaceFinish>("G4OpticalSurfaceFinish")
        .value("polished", polished)                    // smooth perfectly polished surface
        .value("polishedfrontpainted", polishedfrontpainted)        // smooth top-layer (front) paint
@@ -125,7 +138,7 @@ void export_G4OpticalSurface()
        .value("groundvm2000air", groundvm2000air)             // rough-cut surface, with esr film
        .value("groundvm2000glue",groundvm2000glue)             // rough-cut surface, with esr film & meltmount
     ;
-    
+
     enum_<G4OpticalSurfaceModel>("G4OpticalSurfaceModel")
        .value("glisur", glisur)                      // original GEANT3 model
        .value("unified", unified)                     // UNIFIED model
@@ -133,4 +146,3 @@ void export_G4OpticalSurface()
        .value("dichroic", dichroic)                     // dichroic filter
     ;
 }
-
