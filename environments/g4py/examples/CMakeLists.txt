@@ -7,4 +7,4 @@ add_subdirectory(demos/TestEm0/module)
 add_subdirectory(demos/water_phantom/module)
 
 # Build custom module and place here
-add_subdirectory(/home/angus/GIT/detector_simulation/geantpy/module /home/angus/GIT/detector_simulation/geantpy)
+add_subdirectory($ENV{G4PY_EXAMPLE} $ENV{G4PY_EXAMPLE}/../)
