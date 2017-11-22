@@ -63,7 +63,6 @@ public:
     this->G4VSensitiveDetector::Initialize(hc);  
   }
   void EndOfEvent(G4HCofThisEvent* hc) {
-      std::cout << "End of event" << std::endl;
     if (override f = get_override("EndOfEvent"))
         f(&hc);
     else

@@ -23,53 +23,66 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-// $Id: pyG4SDManager.cc 86749 2014-11-17 15:03:05Z gcosmo $
+// $Id: pyG4Material.cc 76884 2013-11-18 12:54:03Z gcosmo $
 // ====================================================================
-//   pyG4SDManager.cc
+//   pyG4Material.cc
 //
 //                                         2005 Q
 // ====================================================================
 #include <boost/python.hpp>
+#include "pyG4indexing.hh"
+
 #include "G4Version.hh"
-#include "G4SDManager.hh"
-#include "G4Event.hh"
+#include "G4LogicalSkinSurface.hh"
+#include "G4LogicalVolume.hh"
+#include "G4SurfaceProperty.hh"
 
 using namespace boost::python;
 
-// ====================================================================
-// thin wrappers
-// ====================================================================
-namespace pyG4SDManager {
+
+namespace pyG4LogicalSkinSurface
+{
 
 }
 
-using namespace pyG4SDManager;
+using namespace pyG4LogicalSkinSurface;
 
 // ====================================================================
 // module definition
 // ====================================================================
-void export_G4SDManager()
+void export_G4LogicalSkinSurface()
 {
-  class_<G4SDManager, boost::noncopyable>
-    ("G4SDManager", "sensitive detector manager class", no_init)
-    // ---
-    .def("GetSDMpointer", &G4SDManager::GetSDMpointer,
-        "Get an instance of G4SDManager",
-        return_value_policy<reference_existing_object>())
-    .staticmethod("GetSDMpointer")
-    .def("GetSDMpointerIfExist", &G4SDManager::GetSDMpointerIfExist,
-        "Get an instance of G4SDManager if it exists",
-        return_value_policy<reference_existing_object>())
-    .staticmethod("GetSDMpointerIfExist")
-    // ---
-    .def("SetVerboseLevel", &G4SDManager::SetVerboseLevel)
-    // ---
-    .def("AddNewDetector", &G4SDManager::AddNewDetector)
-    .def("Activate", &G4SDManager::Activate)
-    .def("FindSensitiveDetector", &G4SDManager::FindSensitiveDetector,
-        return_value_policy<reference_existing_object>())
-        
-    .def("ListTree", &G4SDManager::ListTree)
-    ;
+    class_<G4LogicalSkinSurfaceTable> ("G4LogicalSkinSurfaceTable")
+      .def(vector_indexing_suite<G4LogicalSkinSurfaceTable>())
+      ;
 
+    class_<G4LogicalSkinSurface, G4LogicalSkinSurface*, boost::noncopyable>
+      ("G4LogicalSkinSurface", "logical skin surface class", no_init)
+    .def(init<const G4String&, G4LogicalVolume*,
+      G4SurfaceProperty*>())
+    // ---
+    .def("GetSurface", &G4LogicalSkinSurface::GetSurface,
+      return_value_policy<reference_existing_object>())
+    .staticmethod("GetSurface")
+    
+    .def("GetLogicalVolume", &G4LogicalSkinSurface::GetLogicalVolume,
+      return_value_policy<reference_existing_object>())
+    .def("SetLogicalVolume", &G4LogicalSkinSurface::SetLogicalVolume)
+
+    .def("CleanSurfaceTable", &G4LogicalSkinSurface::CleanSurfaceTable)
+    .staticmethod("CleanSurfaceTable")
+
+    .def("GetSurfaceTable", &G4LogicalSkinSurface::GetSurfaceTable,
+      return_value_policy<reference_existing_object>())
+    .staticmethod("GetSurfaceTable")
+
+    .def("GetNumberOfSkinSurfaces", &G4LogicalSkinSurface::GetNumberOfSkinSurfaces)
+    .staticmethod("GetNumberOfSkinSurfaces")
+
+    .def("DumpInfo", &G4LogicalSkinSurface::DumpInfo)
+    .staticmethod("DumpInfo")
+
+    .def(self==self)
+    .def(self!=self)
+    ;
 }

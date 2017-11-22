@@ -1,5 +1,11 @@
 # - build library
 
+include_directories (
+  ${PYTHON_INCLUDE_PATH}
+  ${Boost_INCLUDE_DIRS}
+  ${PROJECT_SOURCE_DIR}/source/boost
+  ${GEANT4_INCLUDE_DIR}
+)
 # library
 set(_TARGET pyG4track)
 add_library(
