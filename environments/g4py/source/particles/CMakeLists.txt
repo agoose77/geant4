@@ -11,6 +11,7 @@ add_library(
   pyG4ParticleTable.cc
   pyG4PrimaryParticle.cc
   pyG4PrimaryVertex.cc
+  pyG4IonTable.cc
   pymodG4particles.cc
 )
 

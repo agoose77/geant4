@@ -32,6 +32,7 @@
 #include <boost/python.hpp>
 #include "G4Version.hh"
 #include "G4ParticleTable.hh"
+#include "G4IonTable.hh"
 
 using namespace boost::python;
 
@@ -125,8 +126,9 @@ void export_G4ParticleTable()
     .def("FindAntiParticle",  f3_FindAntiParticle,
          return_value_policy<reference_existing_object>())
     .def("DumpTable",         &G4ParticleTable::DumpTable, f_DumpTable())
-    //.def("GetIonTable",     &G4ParticleTable::GetIonTable,
-    //...)
+    .def("GetIonTable",     &G4ParticleTable::GetIonTable,
+    return_value_policy<reference_existing_object>())
+    
     //.def("GetShortLivedTable", &G4ParticleTable::GetShortLivedTable,
     //...)
     .def("SetVerboseLevel",   &G4ParticleTable::SetVerboseLevel)

@@ -55,6 +55,7 @@
 
 // Decays
 #include "G4DecayPhysics.hh"
+#include "G4RadioactiveDecayPhysics.hh"
 
 
 // macro for adding physics constructors
@@ -108,6 +109,7 @@ void export_PhysicsConstructors()
     
     // Decays
     ADD_PHYSICS_CONSTRUCTOR(G4DecayPhysics)
+    ADD_PHYSICS_CONSTRUCTOR(G4RadioactiveDecayPhysics)
     
     // EM
     ADD_PHYSICS_CONSTRUCTOR(G4EmPenelopePhysics)
