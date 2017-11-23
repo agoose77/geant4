@@ -7,4 +7,6 @@ add_subdirectory(demos/TestEm0/module)
 add_subdirectory(demos/water_phantom/module)
 
 # Build custom module and place here
-add_subdirectory($ENV{G4PY_EXAMPLE} $ENV{G4PY_EXAMPLE}/../)
+if(DEFINED ENV{G4PY_EXAMPLE})
+    add_subdirectory($ENV{G4PY_EXAMPLE} $ENV{G4PY_EXAMPLE}/../)
+endif()
