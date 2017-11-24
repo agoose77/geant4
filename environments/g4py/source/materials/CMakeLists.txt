@@ -16,6 +16,7 @@ add_library(
   pyG4OpticalSurface.cc
   pymodG4materials.cc
   pyG4MaterialPropertiesTable.cc
+  pyG4IonisParamMat.cc
 )
 
 set_target_properties(${_TARGET} PROPERTIES PREFIX "")

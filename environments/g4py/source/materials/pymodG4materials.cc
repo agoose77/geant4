@@ -47,6 +47,7 @@ void export_G4AtomicShells();
 void export_G4MaterialPropertiesTable();
 void export_G4SurfaceProperty();
 void export_G4OpticalSurface();
+void export_G4IonisParamMat();
 
 BOOST_PYTHON_MODULE(G4materials)
 {
@@ -61,5 +62,6 @@ BOOST_PYTHON_MODULE(G4materials)
   export_G4MaterialPropertiesTable();
   export_G4SurfaceProperty();
   export_G4OpticalSurface();
+  export_G4IonisParamMat();
 }
 
