@@ -9,4 +9,5 @@ add_subdirectory(demos/water_phantom/module)
 # Build custom module and place here
 if(DEFINED ENV{G4PY_EXAMPLE})
     add_subdirectory($ENV{G4PY_EXAMPLE} $ENV{G4PY_EXAMPLE}/../)
+    MESSAGE( STATUS "BUILDING " $ENV{G4PY_EXAMPLE} )
 endif()
