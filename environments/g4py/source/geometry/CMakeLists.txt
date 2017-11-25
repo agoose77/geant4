@@ -46,6 +46,7 @@ add_library (
   pyG4VTouchable.cc
   pyG4LogicalBorderSurface.cc
   pyG4LogicalSkinSurface.cc
+  pyG4AssemblyVolume.cc
   pymodG4geometry.cc
 )
 

@@ -27,6 +27,7 @@ add_subdirectory(visualization)
 add_subdirectory(graphics_reps)
 add_subdirectory(physics_lists)
 add_subdirectory(gdml)
+add_subdirectory(cad)
 
 if (${PYTHON_VERSION_MAJOR} MATCHES "2")
   add_subdirectory(python)

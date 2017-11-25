@@ -78,6 +78,7 @@ void export_G4UniformMagField();
 void export_G4ChordFinder();
 void export_G4LogicalBorderSurface();
 void export_G4LogicalSkinSurface();
+void export_G4AssemblyVolume();
 
 BOOST_PYTHON_MODULE(G4geometry)
 {
@@ -123,5 +124,6 @@ BOOST_PYTHON_MODULE(G4geometry)
   export_G4ChordFinder();
   export_G4LogicalBorderSurface();
   export_G4LogicalSkinSurface();
+  export_G4AssemblyVolume();
 }
 
