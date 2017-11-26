@@ -6,6 +6,7 @@ add_library(
   ${_TARGET} SHARED
   pyG4Colour.cc
   pyG4VisAttributes.cc
+  pyG4VisExtent.cc
   pymodG4graphics_reps.cc
 )
 

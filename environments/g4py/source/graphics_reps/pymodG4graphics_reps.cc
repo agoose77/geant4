@@ -39,10 +39,12 @@ using namespace boost::python;
 
 void export_G4VisAttributes();
 void export_G4Colour();
+void export_G4VisExtent();
 
 BOOST_PYTHON_MODULE(G4graphics_reps) 
 {
   export_G4VisAttributes();
   export_G4Colour();
+  export_G4VisExtent();
 }
 

@@ -23,42 +23,55 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-// $Id: pyG4VSolid.cc 66892 2013-01-17 10:57:59Z gunter $
+// $Id: pyG4VisExtent.cc 101892 2016-12-07 08:07:30Z gcosmo $
 // ====================================================================
-//   pyG4VSolid.cc
+//   pyG4VisExtent.cc
 //
 //                                         2005 Q
 // ====================================================================
 #include <boost/python.hpp>
-#include "G4Version.hh"
-#include "G4VSolid.hh"
+#include "G4AttDef.hh"
 #include "G4VisExtent.hh"
+#include "G4Point3D.hh"
+#include "pyG4indexing.hh"
 
 using namespace boost::python;
 
 // ====================================================================
-// module definition
+// thin wrappers
 // ====================================================================
-void export_G4VSolid()
-{
-  class_<G4VSolid, G4VSolid*, boost::noncopyable> 
-    ("G4VSolid", "solid class", no_init)
-    // ---
-    .def("GetName",        &G4VSolid::GetName)
-    .def("SetName",        &G4VSolid::SetName)
-    .def("DumpInfo",       &G4VSolid::DumpInfo)
-    
-    .def("GetExtent", &G4VSolid::GetExtent)
+namespace pyG4VisExtent {
 
-    .def("GetCubicVolume",    &G4VSolid::GetCubicVolume)
-#if G4VERSION_NUMBER >=820
-    .def("GetSurfaceArea",    &G4VSolid::GetSurfaceArea)
-#endif
-#if G4VERSION_NUMBER >=800
-    .def("GetPointOnSurface", &G4VSolid::GetPointOnSurface)
-#endif
-    // operators
-    .def(self == self)
-    ;
 }
 
+using namespace pyG4VisExtent;
+
+// ====================================================================
+// module definition
+// ====================================================================
+void export_G4VisExtent()
+{
+    class_<G4VisExtent, G4VisExtent*, boost::noncopyable> ("G4VisExtent", "visualization extents", no_init)
+    // constructors
+    .def(init<G4double, G4double, G4double, G4double, G4double, G4double>())
+    .def(init<const G4Point3D&, G4double>())
+    // ---    
+    .def("GetXmin",           &G4VisExtent::GetXmin)
+    .def("GetXmax",           &G4VisExtent::GetXmax)
+    .def("GetYmin",           &G4VisExtent::GetYmin)
+    .def("GetYmax",           &G4VisExtent::GetYmax)
+    .def("GetZmin",           &G4VisExtent::GetZmin)
+    .def("GetZmax",           &G4VisExtent::GetZmax)
+    
+    .def("SetXmin",           &G4VisExtent::SetXmin)
+    .def("SetXmax",           &G4VisExtent::SetXmax)
+    .def("SetYmin",           &G4VisExtent::SetYmin)
+    .def("SetYmax",           &G4VisExtent::SetYmax)
+    .def("SetZmin",           &G4VisExtent::SetZmin)
+    .def("SetZmax",           &G4VisExtent::SetZmax)
+    // operators
+    .def(self != self)
+    .def(self_ns::str(self))
+    ;
+
+}

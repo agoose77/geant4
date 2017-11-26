@@ -33,8 +33,6 @@
 #include "G4LogicalVolume.hh"
 #include "G4VSolid.hh"
 #include "CADMesh.hh"
-// #include "cadmeshTetrahedralMesh.hh"
-// #include "cadmeshPolygonMesh.hh"
 #include "G4String.hh"
 
 using namespace boost::python;
