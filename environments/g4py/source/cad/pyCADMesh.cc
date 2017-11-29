@@ -36,7 +36,6 @@
 #include "G4String.hh"
 
 using namespace boost::python;
-using namespace CADMesh;
 
 // ====================================================================
 // wrappers
@@ -47,48 +46,46 @@ using namespace CADMesh;
 // ====================================================================>
   
 namespace pyCADMesh 
-{
-    #define DEFINE_BASE_MEMBERS(T) \
-      class_<T, std::shared_ptr<T>, boost::noncopyable> \
-        (#T, #T " class", no_init) \
-        .def(init<>())\
-        .def(init<G4String>())\
-        .def(init<G4String, G4String>())\
-        .def("FromPLY", &T::FromPLY)\
-        .staticmethod("FromPLY")\
-        .def("GetFileName", &T::GetFileName) \
-        .def("GetFileType", &T::GetFileType) \
-        .def("SetVerbose", &T::SetVerbose) \
-        .def("GetVerbose", &T::GetVerbose) \
-        .def("SetScale", &T::SetScale) \
-        .def("GetScale", &T::GetScale) \
-        .def("SetOffset", &T::SetOffset) \
-        .def("GetOffset", &T::GetOffset) 
-        
-    G4TessellatedSolid* (TessellatedMesh::*f1_GetSolid)() = &TessellatedMesh::GetSolid;
-    G4TessellatedSolid* (TessellatedMesh::*f2_GetSolid)(G4int) = &TessellatedMesh::GetSolid;
-    G4TessellatedSolid* (TessellatedMesh::*f3_GetSolid)(G4String) = &TessellatedMesh::GetSolid;
+{   
+    typedef CADMesh T;
+    G4VSolid* (T::*f1_TessellatedMesh)() = &T::TessellatedMesh;
+    G4VSolid* (T::*f2_TessellatedMesh)(G4int) = &T::TessellatedMesh;
+    G4VSolid* (T::*f3_TessellatedMesh)(G4String) = &T::TessellatedMesh;    
 }
 
 using namespace pyCADMesh;
 
 void export_CADMesh()
 {
-    DEFINE_BASE_MEMBERS(TessellatedMesh)
-    .def("GetSolid", f1_GetSolid, return_internal_reference<>())
-    .def("GetSolid", f2_GetSolid, return_internal_reference<>())
-    .def("GetSolid", f3_GetSolid, return_internal_reference<>())
-    .def("SetReverse", &TessellatedMesh::SetReverse)
-    .def("GetReverse", &TessellatedMesh::GetReverse)
-    ;
+  class_<T, boost::noncopyable> 
+    ("CADMesh", "CADMesh class", no_init) 
+    .def(init<char*>())
+    .def(init<char*, char*>())
+        
+    .def("GetFileName", &T::GetFileName) 
+    .def("GetFileType", &T::GetFileType) 
+    .def("SetVerbose", &T::SetVerbose) 
+    .def("GetVerbose", &T::GetVerbose) 
+    .def("SetScale", &T::SetScale) 
+    .def("GetScale", &T::GetScale) 
+    .def("SetOffset", &T::SetOffset) 
+    .def("GetOffset", &T::GetOffset) 
+    .def("SetReverse", &T::SetReverse)
+    .def("GetReverse", &T::GetReverse)
+    .def("SetQuality", &T::SetQuality) 
+    .def("GetQuality", &T::GetQuality) 
     
-    DEFINE_BASE_MEMBERS(TetrahedralMesh)
-    .def("GetAssembly", &TetrahedralMesh::GetAssembly, return_internal_reference<>())
-    .def("SetMaterial", &TetrahedralMesh::SetMaterial)
-    .def("GetMaterial", &TetrahedralMesh::GetMaterial,
-        return_internal_reference<>())
-    .def("SetQuality", &TetrahedralMesh::SetQuality)
-    .def("GetQuality", &TetrahedralMesh::GetQuality)
+    // TessellatedMesh
+    .def("TessellatedMesh", f1_TessellatedMesh, return_internal_reference<>())
+    .def("TessellatedMesh", f2_TessellatedMesh, return_internal_reference<>())
+    .def("TessellatedMesh", f3_TessellatedMesh, return_internal_reference<>())
+    .def("GetSolid", &T::GetSolid, return_internal_reference<>())
+    
+    // TetrahedralMesh 
+    .def("GetAssembly", &T::GetAssembly, return_internal_reference<>())
+    .def("TetrahedralMesh", &T::TetrahedralMesh, return_internal_reference<>())
+    .def("SetMaterial", &T::SetMaterial) 
+    .def("GetMaterial", &T::GetMaterial, return_internal_reference<>()) 
     ;
     
     class_<G4TessellatedSolid, G4TessellatedSolid*, bases<G4VSolid>, boost::noncopyable>("G4TessellatedSolid", no_init)
