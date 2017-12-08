@@ -7,8 +7,8 @@ add_library(
   pyG4VSensitiveDetector.cc
   pyG4HCofThisEvent.cc
   pymodG4digits_hits.cc
-  pyG4SDManager.cc
-)
+  pyG4VHitsCollection.cc
+  pyG4SDManager.cc pyHCTable.cc)
 
 set_target_properties(${_TARGET} PROPERTIES PREFIX "")
 set_target_properties(${_TARGET} PROPERTIES OUTPUT_NAME "G4digits_hits")

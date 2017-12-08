@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.3 FATAL_ERROR)
 
 #------------------------------------------------------------------------------
 project(Geant4Py)
-#------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------
 # installation prefixes for libraries
 set(CMAKE_INSTALL_PREFIX ${PROJECT_SOURCE_DIR})
 
