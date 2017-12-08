@@ -39,8 +39,11 @@ using namespace boost::python;
 // ====================================================================
 void export_G4HCofThisEvent()
 {
-  class_<G4HCofThisEvent, G4HCofThisEvent*, boost::noncopyable>
-    ("G4HCofThisEvent", no_init)
-    // ---
-    ;
+    class_<G4HCofThisEvent, G4HCofThisEvent*, boost::noncopyable>
+            ("G4HCofThisEvent", no_init)
+            // ---
+            .def("GetCapacity", &G4HCofThisEvent::GetCapacity)
+            .def("GetNumberOfCollections", &G4HCofThisEvent::GetNumberOfCollections)
+            .def("GetHC", &G4HCofThisEvent::GetHC, return_internal_reference<>())
+            ;
 }

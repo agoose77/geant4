@@ -70,14 +70,15 @@ void export_G4Event()
     .def("SetUserInformation", &G4Event::SetUserInformation)
     .def("GetUserInformation", &G4Event::GetUserInformation,
 	 return_internal_reference<>())
-    ;
+
 
   // reduced functionality...
   //.def("SetHCofThisEvent",   &G4Event::SetHCofThisEvent)
-  //.def("GetHCofThisEvent",   &G4Event::SetHCofThisEvent,
-  //     return_internal_reference<>())
+  .def("GetHCofThisEvent",   &G4Event::GetHCofThisEvent,
+       return_internal_reference<>())
   //.def("SetDCofThisEvent",   &G4Event::SetHCofThisEvent)
   //.def("GetDCofThisEvent",   &G4Event::SetHCofThisEvent,
   //     return_internal_reference<>())
+    ;
 
 }

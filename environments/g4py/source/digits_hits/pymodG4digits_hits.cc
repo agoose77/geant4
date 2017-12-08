@@ -40,11 +40,15 @@ using namespace boost::python;
 void export_G4VSensitiveDetector();
 void export_G4SDManager();
 void export_G4HCofThisEvent();
+void export_G4VHitsCollection();
+void export_G4HCtable();
 
 BOOST_PYTHON_MODULE(G4digits_hits)
 {
   export_G4VSensitiveDetector();
   export_G4SDManager();
   export_G4HCofThisEvent();
+  export_G4VHitsCollection();
+  export_G4HCtable();
 }
 

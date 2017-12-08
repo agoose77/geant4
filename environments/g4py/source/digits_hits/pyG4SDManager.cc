@@ -40,7 +40,8 @@ using namespace boost::python;
 // thin wrappers
 // ====================================================================
 namespace pyG4SDManager {
-
+    G4int (G4SDManager::*f1_GetCollectionID)(G4String) = &G4SDManager::GetCollectionID;
+    G4int (G4SDManager::*f2_GetCollectionID)(G4VHitsCollection*) = &G4SDManager::GetCollectionID;
 }
 
 using namespace pyG4SDManager;
@@ -48,28 +49,29 @@ using namespace pyG4SDManager;
 // ====================================================================
 // module definition
 // ====================================================================
-void export_G4SDManager()
-{
-  class_<G4SDManager, boost::noncopyable>
-    ("G4SDManager", "sensitive detector manager class", no_init)
-    // ---
-    .def("GetSDMpointer", &G4SDManager::GetSDMpointer,
-        "Get an instance of G4SDManager",
-        return_value_policy<reference_existing_object>())
-    .staticmethod("GetSDMpointer")
-    .def("GetSDMpointerIfExist", &G4SDManager::GetSDMpointerIfExist,
-        "Get an instance of G4SDManager if it exists",
-        return_value_policy<reference_existing_object>())
-    .staticmethod("GetSDMpointerIfExist")
-    // ---
-    .def("SetVerboseLevel", &G4SDManager::SetVerboseLevel)
-    // ---
-    .def("AddNewDetector", &G4SDManager::AddNewDetector)
-    .def("Activate", &G4SDManager::Activate)
-    .def("FindSensitiveDetector", &G4SDManager::FindSensitiveDetector,
-        return_value_policy<reference_existing_object>())
-        
-    .def("ListTree", &G4SDManager::ListTree)
-    ;
+void export_G4SDManager() {
+    class_<G4SDManager, boost::noncopyable>
+            ("G4SDManager", "sensitive detector manager class", no_init)
+            // ---
+            .def("GetSDMpointer", &G4SDManager::GetSDMpointer,
+                 "Get an instance of G4SDManager",
+                 return_value_policy<reference_existing_object>())
+            .staticmethod("GetSDMpointer")
+            .def("GetSDMpointerIfExist", &G4SDManager::GetSDMpointerIfExist,
+                 "Get an instance of G4SDManager if it exists",
+                 return_value_policy<reference_existing_object>())
+            .staticmethod("GetSDMpointerIfExist")
+                    // ---
+            .def("SetVerboseLevel", &G4SDManager::SetVerboseLevel)
+                    // ---
+            .def("AddNewDetector", &G4SDManager::AddNewDetector)
+            .def("GetCollectionID", f1_GetCollectionID)
+            .def("GetCollectionID", f2_GetCollectionID)
+            .def("Activate", &G4SDManager::Activate)
+            .def("GetHCtable", &G4SDManager::GetHCtable, return_internal_reference<>())
+            .def("FindSensitiveDetector", &G4SDManager::FindSensitiveDetector,
+                 return_value_policy<reference_existing_object>())
+
+            .def("ListTree", &G4SDManager::ListTree);
 
 }
