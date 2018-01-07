@@ -43,13 +43,13 @@ using namespace boost::python;
 
 namespace pyG4MaterialPropertiesTable
 {
-    
+
     template<typename T>
     inline std::vector<T> to_std_vector( const object& iterable )
     {
         return std::vector<T>(stl_input_iterator<T>(iterable), stl_input_iterator<T>());
     }
-    
+
     // Converts a C++ map to a python dict
     template <class K, class V>
     dict std_map_to_dict(std::map<K, V> map) {
@@ -60,35 +60,35 @@ namespace pyG4MaterialPropertiesTable
         }
         return dictionary;
     }
-    
+
     G4MaterialPropertyVector* f1_AddProperty(G4MaterialPropertiesTable* table, const char *key, list& PhotonEnergies, list& PropertyValues)
     {
         std::vector<double> vec_energies = to_std_vector<double>(PhotonEnergies);
         std::vector<double> vec_values = to_std_vector<double>(PropertyValues);
-        
+
         if (vec_energies.size() != vec_values.size())
             throw std::invalid_argument("Dimensions of photon energies and property values do not match");
-        
+
         G4MaterialPropertyVector* result = table->AddProperty(key, vec_energies.data(), vec_values.data(), vec_energies.size());
         return result;
-    } 
+    }
     void f2_AddProperty(G4MaterialPropertiesTable* table, const char* key, G4MaterialPropertyVector* vec)
     {
         table->AddProperty(key, vec);
     }
-    
+
     // Unlike API, returns a copy
     dict f_GetPropertiesMap(G4MaterialPropertiesTable* table)
     {
-        return std_map_to_dict<G4String, G4PhysicsOrderedFreeVector*>(*table->GetPropertiesMap());
+        return std_map_to_dict<G4String, G4MaterialPropertyVector*>(*table->GetPropertiesMap());
     }
-    
+
     // Unlike API, returns a copy
     dict f_GetPropertiesCMap(G4MaterialPropertiesTable* table)
     {
         return std_map_to_dict<G4String, G4double>(*table->GetPropertiesCMap());
     }
-    
+
 }
 
 using namespace pyG4MaterialPropertiesTable;
@@ -118,4 +118,3 @@ void export_G4MaterialPropertiesTable()
     .def("GetPropertiesCMap", f_GetPropertiesCMap)
     ;
 }
-
