@@ -61,7 +61,7 @@ namespace pyG4MaterialPropertiesTable
         return dictionary;
     }
 
-    G4MaterialPropertyVector* f1_AddProperty(G4MaterialPropertiesTable* table, const char *key, list& PhotonEnergies, list& PropertyValues)
+    G4MaterialPropertyVector* f1_AddProperty(G4MaterialPropertiesTable* table, const char *key, object& PhotonEnergies, object& PropertyValues)
     {
         std::vector<double> vec_energies = to_std_vector<double>(PhotonEnergies);
         std::vector<double> vec_values = to_std_vector<double>(PropertyValues);
