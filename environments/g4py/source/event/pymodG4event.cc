@@ -43,6 +43,12 @@ void export_G4UserEventAction();
 void export_G4UserStackingAction();
 void export_G4ClassificationOfNewTrack();
 void export_G4ParticleGun();
+void export_G4GeneralParticleSource();
+void export_G4SPSAngDistribution();
+void export_G4SPSEneDistribution();
+void export_G4SPSPosDistribution();
+void export_G4SingleParticleSource();
+void export_G4VPrimaryGenerator();
 
 BOOST_PYTHON_MODULE(G4event)
 {
@@ -52,6 +58,12 @@ BOOST_PYTHON_MODULE(G4event)
   export_G4UserEventAction();
   export_G4UserStackingAction();
   export_G4ClassificationOfNewTrack();
+  export_G4GeneralParticleSource();
+  export_G4SPSAngDistribution();
+  export_G4SPSEneDistribution();
+  export_G4SPSPosDistribution();
+  export_G4SingleParticleSource();
+  export_G4VPrimaryGenerator();
   export_G4ParticleGun();
 }
 

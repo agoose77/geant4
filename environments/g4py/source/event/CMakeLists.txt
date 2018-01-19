@@ -8,6 +8,12 @@ add_library(
   pyG4Event.cc
   pyG4EventManager.cc
   pyG4ParticleGun.cc
+  pyG4GeneralParticleSource.cc
+  pyG4SPSAngDistribution.cc
+  pyG4SPSEneDistribution.cc
+  pyG4SPSPosDistribution.cc
+  pyG4SingleParticleSource.cc
+  pyG4VPrimaryGenerator.cc
   pyG4StackManager.cc
   pyG4UserEventAction.cc
   pyG4UserStackingAction.cc
