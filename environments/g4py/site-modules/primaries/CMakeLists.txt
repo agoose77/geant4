@@ -2,3 +2,4 @@
 
 add_subdirectory(MedicalBeam)
 add_subdirectory(ParticleGun)
+add_subdirectory(PrimaryGenerator)
