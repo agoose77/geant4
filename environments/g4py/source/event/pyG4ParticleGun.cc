@@ -129,7 +129,7 @@ void export_G4ParticleGun()
 #if G4VERSION_NUMBER < 910
   class_<G4ParticleGun>
 #else
-    class_<G4ParticleGun, boost::noncopyable>
+    class_<G4ParticleGun, bases<G4VPrimaryGenerator>, boost::noncopyable>
 #endif
     ("G4ParticleGun", "particle gun")
     // constructor
