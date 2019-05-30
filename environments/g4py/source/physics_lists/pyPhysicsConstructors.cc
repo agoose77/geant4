@@ -36,6 +36,7 @@
 #include "G4EmPenelopePhysics.hh"
 #include "G4EmLivermorePhysics.hh"
 #include "G4EmStandardPhysics.hh"
+#include "G4EmStandardPhysics_option4.hh"
 #include "G4EmLowEPPhysics.hh"
 #include "G4OpticalPhysics.hh"
 
@@ -115,6 +116,7 @@ void export_PhysicsConstructors()
     ADD_PHYSICS_CONSTRUCTOR(G4EmPenelopePhysics)
     ADD_PHYSICS_CONSTRUCTOR(G4EmLivermorePhysics)
     ADD_PHYSICS_CONSTRUCTOR(G4EmStandardPhysics)
+    ADD_PHYSICS_CONSTRUCTOR(G4EmStandardPhysics_option4)
     ADD_PHYSICS_CONSTRUCTOR(G4EmLowEPPhysics)
     
     // Optical
