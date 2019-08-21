@@ -18,6 +18,9 @@ if(CPACK_GENERATOR MATCHES "NSIS")
   set(CPACK_NSIS_URL_INFO_ABOUT "http:\\\\www.geant4.org")
   set(CPACK_NSIS_CONTACT "gabriele.cosmo@cern.ch")
   set(CPACK_NSIS_MODIFY_PATH ON)
+else()
+  set(CPACK_INCLUDE_TOPLEVEL_DIRECTORY 0)
+  set(CPACK_PACKAGING_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 endif()
 
 # - PackageMaker Specifics
